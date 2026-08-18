@@ -1,50 +1,28 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MRPACK Diff Viewer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<div class="wrap">
-  <div class="hero">
-    <div class="title">
-      <h1>MRPACK Diff Viewer</h1>
-      <div class="sub">Upload one or more Modrinth <span class="mono">.mrpack</span> files. Inspect each pack's overall metadata, mods, and bundled override/additional files. Switch to compare mode to show only differences between editions.</div>
-      <div class="toolbar">
-        <span class="pill">Static app</span><span class="pill">Client-side only</span><span class="pill">No uploads to server</span><span class="pill">Reads ZIP + modrinth.index.json</span>
-      </div>
-    </div>
-    <label id="drop" class="drop">
-      <input id="fileInput" class="fileInput" type="file" accept=".mrpack,.zip" multiple />
-      <strong>Drop .mrpack files here</strong>
-      <p>or click to choose several editions at once</p>
-      <span class="btn primary">Choose files</span>
-    </label>
-  </div>
-
-  <div class="grid">
-    <aside class="sidebar">
-      <div class="toolbar"><button class="btn" id="clearBtn">Clear</button><button class="btn" id="demoBtn" title="Loads a tiny synthetic example">Demo</button></div>
-      <div id="packList"></div>
-      <div class="footer">Tip: comparison matches mods by Modrinth project id when available, otherwise by normalized path/name.</div>
-    </aside>
-
-    <main class="main">
-      <div class="tabs">
-        <button class="tab active" data-tab="details">Selected mrpack details</button>
-        <button class="tab" data-tab="compare">Compare uploaded packs</button>
-      </div>
-      <section id="details" class="section active"></section>
-      <section id="compare" class="section"></section>
-    </main>
-  </div>
-</div>
-<script src="vendor/jszip.min.js"></script>
-<script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Inspect and compare Modrinth mrpack archives entirely in your browser."
+    />
+    <meta name="theme-color" content="#f1f3f6" />
+    <title>MRPACK Diff Viewer</title>
+    <script>
+      ;(() => {
+        const stored = localStorage.getItem("mrpack-theme") || "system"
+        const dark =
+          stored === "dark" ||
+          (stored === "system" &&
+            matchMedia("(prefers-color-scheme: dark)").matches)
+        document.documentElement.classList.toggle("dark", dark)
+        document.documentElement.style.colorScheme = dark ? "dark" : "light"
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
