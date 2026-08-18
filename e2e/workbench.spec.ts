@@ -228,14 +228,28 @@ test("removes, restores, and clears loaded packs", async ({ page }) => {
   await page.goto("")
   await loadDemo(page)
 
-  await page
-    .getByRole("button", { name: "Actions for wayfinder-stable" })
-    .click()
+  const packActions = page.getByRole("button", {
+    name: "Actions for wayfinder-stable",
+  })
+  const usesSidebarDialog = !(await packActions.isVisible())
+  if (usesSidebarDialog) {
+    await page.getByRole("button", { name: "Toggle Sidebar" }).click()
+  }
+  await packActions.click()
   await page.getByRole("menuitem", { name: "Remove pack" }).click()
+  if (usesSidebarDialog) {
+    await page.keyboard.press("Escape")
+    await expect(
+      page.getByRole("dialog", { name: "Sidebar" }),
+    ).not.toBeVisible()
+  }
   await expect(page.getByRole("tab", { name: /Compare 1/ })).toBeDisabled()
   await page.getByRole("button", { name: "Undo" }).click()
   await expect(page.getByRole("tab", { name: /Compare 2/ })).toBeEnabled()
 
+  if (usesSidebarDialog) {
+    await page.getByRole("button", { name: "Toggle Sidebar" }).click()
+  }
   await page.getByRole("button", { name: "Clear all" }).click()
   await expect(
     page.getByRole("heading", { name: "Clear every loaded pack?" }),

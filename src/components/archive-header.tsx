@@ -41,6 +41,13 @@ export function ArchiveHeader({
         size="sm"
         disabled={isLoading}
         onClick={onChooseFiles}
+        aria-label={
+          isLoading
+            ? progress
+              ? `Reading ${progress.current} of ${progress.total}`
+              : "Reading packs"
+            : "Add packs"
+        }
       >
         {isLoading ? (
           <Spinner data-icon="inline-start" />
