@@ -79,21 +79,26 @@ export function ArchiveSidebar({
 
   return (
     <Sidebar variant="inset">
-      <SidebarHeader className="p-3">
-        <div className="flex items-center gap-2.5 px-1 py-1">
-          <span className="bg-sidebar-primary text-sidebar-primary-foreground grid size-9 shrink-0 place-items-center rounded-lg">
-            <ArchiveIcon className="size-4" aria-hidden="true" />
+      <SidebarHeader className="p-2">
+        <div className="flex items-center gap-2 px-1 py-0.5">
+          <span className="bg-sidebar-primary text-sidebar-primary-foreground grid size-7 shrink-0 place-items-center rounded-sm">
+            <ArchiveIcon className="size-3.5" aria-hidden="true" />
           </span>
           <span className="min-w-0">
-            <span className="archive-wordmark block truncate text-xl">
-              MRPACK / DIFF
+            <span className="archive-wordmark block truncate text-sm">
+              mrpack.diff
             </span>
-            <span className="text-sidebar-foreground/75 block truncate text-xs">
-              Archive workbench
+            <span className="text-sidebar-foreground/70 block truncate text-[0.625rem]">
+              local archive workbench
             </span>
           </span>
         </div>
-        <Button className="w-full" disabled={isLoading} onClick={onChooseFiles}>
+        <Button
+          size="sm"
+          className="w-full"
+          disabled={isLoading}
+          onClick={onChooseFiles}
+        >
           {isLoading ? (
             <Spinner data-icon="inline-start" />
           ) : (
@@ -107,23 +112,26 @@ export function ArchiveSidebar({
       <SidebarSeparator />
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Loaded packs · {packs.length}</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[0.625rem] tracking-[0.08em] uppercase">
+            Loaded packs · {packs.length}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {packs.map((pack) => (
                 <SidebarMenuItem key={pack.id}>
                   <SidebarMenuButton
                     size="lg"
+                    className="data-active:border-l-sidebar-primary h-10 rounded-sm border-l-2 border-l-transparent"
                     isActive={pack.id === selectedId}
                     onClick={() => selectPack(pack.id)}
                     tooltip={packDisplayName(pack)}
                   >
                     <FileArchiveIcon />
-                    <span className="flex min-w-0 flex-col gap-0.5">
-                      <span className="truncate font-bold">
+                    <span className="flex min-w-0 flex-col gap-0">
+                      <span className="truncate text-xs font-semibold">
                         {packDisplayName(pack)}
                       </span>
-                      <span className="text-sidebar-foreground/75 truncate text-xs">
+                      <span className="text-sidebar-foreground/70 truncate text-[0.625rem]">
                         {pack.index.dependencies?.minecraft ?? "Unknown MC"} ·{" "}
                         {pack.mods.length} mods
                       </span>
@@ -159,15 +167,15 @@ export function ArchiveSidebar({
         </SidebarGroup>
       </SidebarContent>
       <SidebarSeparator />
-      <SidebarFooter className="p-3">
-        <div className="text-sidebar-foreground/70 flex items-center gap-2 px-1 text-xs">
-          <ShieldCheckIcon className="size-3.5 shrink-0" aria-hidden="true" />
+      <SidebarFooter className="p-2">
+        <div className="text-sidebar-foreground/70 flex items-center gap-1.5 px-1 text-[0.625rem]">
+          <ShieldCheckIcon className="size-3 shrink-0" aria-hidden="true" />
           <span>Files stay in this browser.</span>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1.5">
           <Button
             variant="outline"
-            size="sm"
+            size="xs"
             disabled={isLoading}
             onClick={onLoadDemo}
           >
@@ -177,7 +185,7 @@ export function ArchiveSidebar({
           <AlertDialog>
             <AlertDialogTrigger
               render={
-                <Button variant="outline" size="sm" disabled={isLoading} />
+                <Button variant="outline" size="xs" disabled={isLoading} />
               }
             >
               <Trash2Icon data-icon="inline-start" />
@@ -201,7 +209,7 @@ export function ArchiveSidebar({
           </AlertDialog>
         </div>
         <Badge variant="outline" className="justify-center">
-          Modrinth index + ZIP contents
+          ZIP + modrinth.index
         </Badge>
       </SidebarFooter>
     </Sidebar>

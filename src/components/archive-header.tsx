@@ -23,22 +23,24 @@ export function ArchiveHeader({
   onChooseFiles,
 }: ArchiveHeaderProps) {
   return (
-    <header className="bg-background/92 sticky top-0 z-30 flex min-h-14 items-center gap-2 border-b px-3 backdrop-blur-md sm:px-5">
-      <SidebarTrigger />
-      <Separator orientation="vertical" className="mx-1 h-5" />
+    <header className="bg-background/94 sticky top-0 z-30 flex min-h-11 items-center gap-1.5 border-b px-2 backdrop-blur-md sm:px-3">
+      <SidebarTrigger className="size-7" />
+      <Separator orientation="vertical" className="mx-0.5 h-4" />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-bold">{packDisplayName(pack)}</p>
-        <p className="text-muted-foreground truncate text-xs">
-          {pack.index.versionId ?? "No version ID"} · {pack.mods.length} mods
+        <p className="truncate text-xs font-semibold">
+          workspace / {packDisplayName(pack)}
+        </p>
+        <p className="text-muted-foreground truncate text-[0.625rem]">
+          {pack.index.versionId ?? "no-version"} · {pack.mods.length} mods
         </p>
       </div>
       <Badge variant="success" className="hidden lg:inline-flex">
         <ShieldCheckIcon data-icon="inline-start" />
-        Browser only
+        local
       </Badge>
       <Button
         variant="outline"
-        size="sm"
+        size="xs"
         disabled={isLoading}
         onClick={onChooseFiles}
         aria-label={

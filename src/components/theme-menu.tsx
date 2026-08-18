@@ -31,7 +31,7 @@ export function ThemeMenu() {
         render={
           <Button
             variant="ghost"
-            size="icon-sm"
+            size="icon-xs"
             aria-label={`Theme: ${labels[current]}`}
           />
         }

@@ -29,11 +29,11 @@ function DetailRow({
   children: ReactNode
 }) {
   return (
-    <div className="grid gap-1 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
-      <dt className="text-muted-foreground text-xs font-bold tracking-wide uppercase">
+    <div className="grid gap-0.5 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-3">
+      <dt className="text-muted-foreground text-[0.625rem] font-semibold tracking-[0.06em] uppercase">
         {label}
       </dt>
-      <dd className="min-w-0 text-sm break-words">{children}</dd>
+      <dd className="min-w-0 text-xs break-words">{children}</dd>
     </div>
   )
 }
@@ -54,7 +54,7 @@ export function EnvironmentBadges({
   if (!entries.length) return <span className="text-muted-foreground">—</span>
 
   return (
-    <span className="flex flex-wrap gap-1.5">
+    <span className="flex flex-wrap gap-1">
       {entries.map(([side, value]) => (
         <Badge key={side} variant={environmentVariant(value)}>
           {side}: {value}
@@ -76,8 +76,8 @@ export function DetailSheet({ selection, onOpenChange }: DetailSheetProps) {
 
   return (
     <Sheet open onOpenChange={onOpenChange}>
-      <SheetContent className="sm:max-w-xl">
-        <SheetHeader>
+      <SheetContent className="gap-0 sm:max-w-lg">
+        <SheetHeader className="p-3">
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>
             {isMod
@@ -86,8 +86,8 @@ export function DetailSheet({ selection, onOpenChange }: DetailSheetProps) {
           </SheetDescription>
         </SheetHeader>
         <Separator />
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6">
-          <dl className="flex flex-col gap-5">
+        <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
+          <dl className="flex flex-col gap-3">
             <DetailRow label="Path">
               <span className="font-mono text-xs break-all">{item.path}</span>
             </DetailRow>
@@ -127,14 +127,14 @@ export function DetailSheet({ selection, onOpenChange }: DetailSheetProps) {
             ))}
             {(item.downloads ?? []).length ? (
               <DetailRow label="Downloads">
-                <span className="flex flex-col items-start gap-2">
+                <span className="flex flex-col items-start gap-1.5">
                   {item.downloads?.map((url) => (
                     <a
                       key={url}
                       href={url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-primary inline-flex max-w-full items-center gap-1.5 underline-offset-4 hover:underline"
+                      className="text-primary inline-flex max-w-full items-center gap-1.5 text-xs underline-offset-4 hover:underline"
                     >
                       <span className="truncate">
                         {url.split("/").pop() || url}

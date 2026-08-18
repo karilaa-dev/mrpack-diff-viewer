@@ -210,8 +210,8 @@ export default function App() {
         <SidebarProvider
           style={
             {
-              "--sidebar-width": "19rem",
-              "--sidebar-width-mobile": "19rem",
+              "--sidebar-width": "16.5rem",
+              "--sidebar-width-mobile": "18rem",
             } as React.CSSProperties
           }
         >
@@ -239,7 +239,7 @@ export default function App() {
               className="outline-none"
             >
               {errors.length ? (
-                <div className="px-3 pt-4 sm:px-6">
+                <div className="px-3 pt-3 sm:px-4">
                   <Alert variant="destructive">
                     <CircleAlertIcon />
                     <AlertTitle>Some files could not be loaded</AlertTitle>
@@ -271,18 +271,18 @@ export default function App() {
                 }}
                 className="gap-0"
               >
-                <div className="overflow-x-auto border-b px-3 sm:px-6">
-                  <TabsList variant="line" className="h-12 min-w-max">
+                <div className="overflow-x-auto border-b px-2 sm:px-4">
+                  <TabsList variant="line" className="h-9 min-w-max">
                     <TabsTrigger value="overview">Overview</TabsTrigger>
                     <TabsTrigger value="mods">
                       Mods{" "}
-                      <span className="text-xs">
+                      <span className="bg-muted text-muted-foreground rounded-sm px-1 py-0.5 text-[0.625rem]">
                         {selectedPack.mods.length}
                       </span>
                     </TabsTrigger>
                     <TabsTrigger value="files">
                       Additional files{" "}
-                      <span className="text-xs">
+                      <span className="bg-muted text-muted-foreground rounded-sm px-1 py-0.5 text-[0.625rem]">
                         {selectedPack.additionalFiles.length}
                       </span>
                     </TabsTrigger>
@@ -296,11 +296,14 @@ export default function App() {
                           : undefined
                       }
                     >
-                      Compare <span className="text-xs">{packs.length}</span>
+                      Compare{" "}
+                      <span className="bg-muted text-muted-foreground rounded-sm px-1 py-0.5 text-[0.625rem]">
+                        {packs.length}
+                      </span>
                     </TabsTrigger>
                   </TabsList>
                 </div>
-                <div className="mx-auto w-full max-w-[96rem] p-4 sm:p-6 lg:p-8">
+                <div className="mx-auto w-full max-w-[100rem] p-3 sm:p-4 lg:p-5">
                   <TabsContent value="overview">
                     <OverviewView pack={selectedPack} />
                   </TabsContent>
@@ -317,7 +320,7 @@ export default function App() {
                     <Suspense
                       fallback={
                         <div
-                          className="text-muted-foreground flex min-h-64 items-center justify-center gap-2 text-sm"
+                          className="text-muted-foreground flex min-h-48 items-center justify-center gap-2 text-xs"
                           role="status"
                         >
                           <Spinner />
@@ -346,10 +349,10 @@ export default function App() {
 
       {isDragging ? (
         <div className="drag-overlay" aria-hidden="true">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <ArchiveIcon className="text-primary size-10" />
-            <strong className="font-heading text-3xl">Drop to add packs</strong>
-            <span className="text-muted-foreground text-sm">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <ArchiveIcon className="text-primary size-8" />
+            <strong className="font-heading text-xl">Drop to add packs</strong>
+            <span className="text-muted-foreground text-xs">
               .mrpack and .zip files stay in this browser
             </span>
           </div>

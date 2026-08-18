@@ -96,7 +96,7 @@ function renderValue(
 
   if (section === "metadata") {
     return (
-      <span className="font-mono text-xs break-words">
+      <span className="font-mono text-[0.6875rem] break-words">
         {metadataDisplayValue(value as MetadataRow)}
       </span>
     )
@@ -105,7 +105,7 @@ function renderValue(
   if (section === "mods") {
     const mod = value as ModEntry
     return (
-      <span className="flex min-w-40 flex-col items-start gap-2">
+      <span className="flex min-w-36 flex-col items-start gap-1.5">
         <Badge variant="secondary">{modVersionLabel(mod)}</Badge>
         <EnvironmentBadges env={mod.env} />
         <Button
@@ -122,9 +122,9 @@ function renderValue(
 
   const file = value as AdditionalFile
   return (
-    <span className="flex min-w-36 flex-col items-start gap-2">
+    <span className="flex min-w-32 flex-col items-start gap-1.5">
       <Badge variant="outline">{file.source ?? "index file"}</Badge>
-      <span className="text-muted-foreground text-xs">
+      <span className="text-muted-foreground text-[0.6875rem]">
         {formatBytes(file.fileSize)}
       </span>
       <Button
@@ -159,10 +159,10 @@ function ComparisonLedger({
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="min-w-64">Change</TableHead>
+              <TableHead className="min-w-52">Change</TableHead>
               {packs.map((pack) => (
-                <TableHead key={pack.id} className="min-w-56">
-                  <span className="pack-tab max-w-52 truncate">
+                <TableHead key={pack.id} className="min-w-48">
+                  <span className="pack-tab max-w-44 truncate">
                     {packDisplayName(pack)}
                   </span>
                 </TableHead>
@@ -172,9 +172,9 @@ function ComparisonLedger({
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.key}>
-                <TableCell className="max-w-80">
-                  <span className="flex flex-col items-start gap-2">
-                    <strong className="max-w-72 break-words">
+                <TableCell className="max-w-64">
+                  <span className="flex flex-col items-start gap-1.5">
+                    <strong className="max-w-60 break-words">
                       {row.label}
                     </strong>
                     <StatusBadge kind={row.kind} />
@@ -191,20 +191,24 @@ function ComparisonLedger({
         </Table>
       </div>
 
-      <div className="flex flex-col gap-3 md:hidden">
+      <div className="flex flex-col gap-2 md:hidden">
         {rows.map((row) => (
-          <Card key={row.key} size="sm">
+          <Card
+            key={row.key}
+            size="sm"
+            className="border-l-primary/60 border-l-2"
+          >
             <CardHeader>
               <CardTitle className="break-words">{row.label}</CardTitle>
               <CardDescription>
                 <StatusBadge kind={row.kind} />
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-3">
+            <CardContent className="flex flex-col gap-2">
               {packs.map((pack, index) => (
-                <div key={pack.id} className="flex flex-col gap-2">
+                <div key={pack.id} className="flex flex-col gap-1.5">
                   {index ? <Separator /> : null}
-                  <strong className="text-xs tracking-wide uppercase">
+                  <strong className="text-[0.625rem] tracking-[0.06em] uppercase">
                     {packDisplayName(pack)}
                   </strong>
                   {renderValue(row.vals[index], section, onSelect)}
@@ -237,9 +241,9 @@ function ComparisonSection({
 
   return (
     <AccordionItem value={value}>
-      <AccordionTrigger className="py-4">
-        <span className="flex items-center gap-2">
-          <span className="font-heading text-lg font-bold">{title}</span>
+      <AccordionTrigger className="py-2.5">
+        <span className="flex items-center gap-1.5">
+          <span className="font-heading text-sm font-semibold">{title}</span>
           <Badge variant="outline">{rows.length}</Badge>
         </span>
       </AccordionTrigger>
@@ -277,26 +281,26 @@ export function CompareView({ packs }: { packs: PackData[] }) {
   const total = diff.metadata.length + diff.mods.length + diff.files.length
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-1">
-        <p className="text-primary text-xs font-bold tracking-[0.16em] uppercase">
-          Symmetric comparison
+    <div className="flex flex-col gap-4">
+      <div className="manifest-gutter flex flex-col gap-0.5">
+        <p className="text-primary text-[0.625rem] font-semibold tracking-[0.1em] uppercase">
+          compare / diff
         </p>
-        <h1 className="manifest-title text-4xl sm:text-5xl">
+        <h1 className="manifest-title text-2xl sm:text-3xl">
           Differences only
         </h1>
-        <p className="text-muted-foreground max-w-3xl text-sm sm:text-base">
+        <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
           Every loaded pack is compared side by side. Missing mods appear first,
           followed by version and detail changes.
         </p>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         <Badge>{packs.length} packs</Badge>
         <Badge variant="outline">{diff.metadata.length} metadata</Badge>
         <Badge variant="outline">{diff.mods.length} mods</Badge>
         <Badge variant="outline">{diff.files.length} files</Badge>
       </div>
-      <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
         <SearchField
           label="Filter differences"
           placeholder="Filter by mod, file, or metadata name…"

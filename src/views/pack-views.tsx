@@ -53,12 +53,12 @@ function ViewHeader({
   description: string
 }) {
   return (
-    <div className="flex flex-col gap-1">
-      <p className="text-primary text-xs font-bold tracking-[0.16em] uppercase">
+    <div className="manifest-gutter flex flex-col gap-0.5">
+      <p className="text-primary text-[0.625rem] font-semibold tracking-[0.1em] uppercase">
         {eyebrow}
       </p>
-      <h1 className="manifest-title text-4xl sm:text-5xl">{title}</h1>
-      <p className="text-muted-foreground max-w-2xl text-sm sm:text-base">
+      <h1 className="manifest-title text-2xl sm:text-3xl">{title}</h1>
+      <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
         {description}
       </p>
     </div>
@@ -96,16 +96,16 @@ export function OverviewView({ pack }: { pack: PackData }) {
   const dependencies = pack.index.dependencies ?? {}
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <ViewHeader
-        eyebrow="Active archive"
+        eyebrow="archive / overview"
         title={packDisplayName(pack)}
         description={
           pack.index.summary ??
           "Manifest metadata and dependency targets for the selected pack."
         }
       />
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {dependencies.minecraft ? (
           <Badge>Minecraft {dependencies.minecraft}</Badge>
         ) : null}
@@ -125,7 +125,7 @@ export function OverviewView({ pack }: { pack: PackData }) {
           {pack.additionalFiles.length} extra files
         </Badge>
       </div>
-      <Card>
+      <Card size="sm">
         <CardHeader className="border-b">
           <CardTitle>Manifest</CardTitle>
           <CardDescription>
@@ -143,8 +143,8 @@ export function OverviewView({ pack }: { pack: PackData }) {
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.key}>
-                  <TableCell className="w-44">
-                    <span className="text-muted-foreground text-xs font-bold tracking-wide uppercase">
+                  <TableCell className="w-40">
+                    <span className="text-muted-foreground text-[0.625rem] font-semibold tracking-[0.06em] uppercase">
                       {row.key}
                     </span>
                   </TableCell>
@@ -178,13 +178,13 @@ export function ModsView({ pack }: { pack: PackData }) {
   }, [pack.mods, query])
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <ViewHeader
-        eyebrow="Indexed contents"
+        eyebrow="index / mods"
         title="Mods"
         description={`Browse ${pack.mods.length} indexed mods and open a record for paths, hashes, environments, and downloads.`}
       />
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <SearchField
           label="Filter mods"
           placeholder="Filter by mod, path, project, or version…"
@@ -194,9 +194,9 @@ export function ModsView({ pack }: { pack: PackData }) {
         <Badge variant="outline">{filtered.length} shown</Badge>
       </div>
       {filtered.length ? (
-        <Card>
+        <Card size="sm">
           <CardContent>
-            <Table className="min-w-[44rem]">
+            <Table className="min-w-[40rem]">
               <TableCaption className="sr-only">
                 Mods in {packDisplayName(pack)}
               </TableCaption>
@@ -215,8 +215,8 @@ export function ModsView({ pack }: { pack: PackData }) {
                   <TableRow key={`${mod.key}-${mod.path}`}>
                     <TableCell>
                       <span className="flex max-w-sm flex-col gap-0.5">
-                        <strong>{mod.displayName}</strong>
-                        <span className="text-muted-foreground truncate font-mono text-xs">
+                        <strong className="text-xs">{mod.displayName}</strong>
+                        <span className="text-muted-foreground truncate font-mono text-[0.625rem]">
                           {mod.path}
                         </span>
                       </span>
@@ -275,13 +275,13 @@ export function FilesView({ pack }: { pack: PackData }) {
   }, [pack.additionalFiles, query])
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <ViewHeader
-        eyebrow="Bundled contents"
+        eyebrow="archive / files"
         title="Additional files"
         description="Review indexed non-mod files and files bundled directly inside override folders."
       />
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <SearchField
           label="Filter additional files"
           placeholder="Filter by file path…"
@@ -291,9 +291,9 @@ export function FilesView({ pack }: { pack: PackData }) {
         <Badge variant="outline">{filtered.length} shown</Badge>
       </div>
       {filtered.length ? (
-        <Card>
+        <Card size="sm">
           <CardContent>
-            <Table className="min-w-[42rem]">
+            <Table className="min-w-[38rem]">
               <TableCaption className="sr-only">
                 Additional files in {packDisplayName(pack)}
               </TableCaption>
@@ -312,7 +312,7 @@ export function FilesView({ pack }: { pack: PackData }) {
                   <TableRow key={`${file.key}-${file.source ?? "index"}`}>
                     <TableCell>
                       <span
-                        className="block max-w-xl truncate font-mono text-xs"
+                        className="block max-w-xl truncate font-mono text-[0.6875rem]"
                         title={file.path}
                       >
                         {file.path}
@@ -382,13 +382,13 @@ export function RawView({ pack }: { pack: PackData }) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <ViewHeader
-        eyebrow="Source manifest"
+        eyebrow="source / raw"
         title="Raw index"
         description="The complete modrinth.index.json exactly as it was parsed from this archive."
       />
-      <Card>
+      <Card size="sm">
         <CardHeader className="border-b">
           <CardTitle>modrinth.index.json</CardTitle>
           <CardDescription>
@@ -402,7 +402,7 @@ export function RawView({ pack }: { pack: PackData }) {
           </CardAction>
         </CardHeader>
         <CardContent>
-          <pre className="bg-muted max-h-[65svh] overflow-auto rounded-lg p-4 font-mono text-xs leading-relaxed">
+          <pre className="bg-muted/70 max-h-[70svh] overflow-auto rounded-sm border p-3 font-mono text-[0.6875rem] leading-relaxed">
             <code>{raw}</code>
           </pre>
         </CardContent>

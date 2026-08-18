@@ -51,13 +51,13 @@ export function EmptyWorkspace({
   onDismissErrors,
 }: EmptyWorkspaceProps) {
   return (
-    <div className="mx-auto flex min-h-svh w-full max-w-6xl flex-col px-4 py-4 sm:px-6 sm:py-6">
+    <div className="mx-auto flex min-h-svh w-full max-w-7xl flex-col px-3 py-3 sm:px-5 sm:py-4">
       <header className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2.5">
-          <span className="bg-primary text-primary-foreground grid size-9 place-items-center rounded-lg">
-            <ArchiveIcon className="size-4" aria-hidden="true" />
+        <div className="flex items-center gap-2">
+          <span className="bg-primary text-primary-foreground grid size-7 place-items-center rounded-sm">
+            <ArchiveIcon className="size-3.5" aria-hidden="true" />
           </span>
-          <span className="archive-wordmark text-xl">MRPACK / DIFF</span>
+          <span className="archive-wordmark text-sm">mrpack.diff</span>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="success" className="hidden sm:inline-flex">
@@ -68,9 +68,9 @@ export function EmptyWorkspace({
         </div>
       </header>
 
-      <main className="flex flex-1 flex-col justify-center gap-4 py-12 sm:py-20">
+      <main className="flex flex-1 flex-col justify-center gap-3 py-6 sm:py-10">
         {errors.length ? (
-          <Alert variant="destructive" className="mx-auto max-w-4xl">
+          <Alert variant="destructive" className="mx-auto max-w-5xl">
             <CircleAlertIcon />
             <AlertTitle>The archive could not be loaded</AlertTitle>
             <AlertDescription>
@@ -92,39 +92,35 @@ export function EmptyWorkspace({
             </AlertAction>
           </Alert>
         ) : null}
-        <Card className="archive-drop mx-auto w-full max-w-4xl">
+        <Card size="sm" className="archive-drop mx-auto w-full max-w-5xl">
           <CardHeader className="border-b">
-            <CardTitle>Archive workbench</CardTitle>
+            <CardTitle>Local archive session</CardTitle>
             <CardDescription>
-              Reads ZIP contents and modrinth.index.json without sending your
-              files anywhere.
+              Reads ZIP contents and modrinth.index.json entirely in this
+              browser.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Empty className="min-h-[24rem] sm:min-h-[28rem]">
-              <EmptyHeader>
+            <Empty className="min-h-[18rem] sm:min-h-[20rem]">
+              <EmptyHeader className="max-w-xl">
                 <EmptyMedia variant="icon">
                   <FilesIcon />
                 </EmptyMedia>
                 <EmptyTitle
                   role="heading"
                   aria-level={1}
-                  className="manifest-title text-4xl sm:text-6xl"
+                  className="manifest-title text-2xl sm:text-3xl"
                 >
                   Open a pack. See what changed.
                 </EmptyTitle>
-                <EmptyDescription className="max-w-lg text-base">
-                  Drop one or more .mrpack files here to inspect an edition. Add
-                  a second pack to compare only what differs.
+                <EmptyDescription className="max-w-xl text-sm">
+                  Drop one or more .mrpack files to inspect an edition. Add a
+                  second pack to isolate manifest, mod, and override changes.
                 </EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
-                <div className="flex flex-col items-center gap-3 sm:flex-row">
-                  <Button
-                    size="lg"
-                    disabled={isLoading}
-                    onClick={onChooseFiles}
-                  >
+                <div className="flex flex-col items-center gap-2 sm:flex-row">
+                  <Button disabled={isLoading} onClick={onChooseFiles}>
                     {isLoading ? (
                       <Spinner data-icon="inline-start" />
                     ) : (
@@ -135,7 +131,6 @@ export function EmptyWorkspace({
                       : "Choose packs"}
                   </Button>
                   <Button
-                    size="lg"
                     variant="outline"
                     disabled={isLoading}
                     onClick={onLoadDemo}
@@ -144,9 +139,9 @@ export function EmptyWorkspace({
                     Load demo
                   </Button>
                 </div>
-                <p className="text-muted-foreground mt-2 text-xs">
-                  Accepts .mrpack and .zip files. You can select several
-                  editions at once.
+                <p className="text-muted-foreground mt-1 text-[0.6875rem]">
+                  Accepts .mrpack and .zip · multiple editions supported · no
+                  uploads
                 </p>
               </EmptyContent>
             </Empty>
